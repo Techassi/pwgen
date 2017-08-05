@@ -1,5 +1,5 @@
 # pwgen
-A simple and short javascript-based password generator
+A simple and fast javascript-based password generator
 
 ## features
 - choose length of password (min 6)
