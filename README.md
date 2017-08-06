@@ -7,6 +7,9 @@ A simple and fast javascript-based password generator
 - copy to clipboard
 - debug information
 
+## planned features
+- add / remove ui elements with keywords
+
 ## usage
 ### script
 - Add the latest jQuery via Google Hosted Libraries to your project head
