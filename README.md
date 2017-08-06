@@ -28,7 +28,7 @@ Add this at the end of your file:
 
 ### css
 - Add the `style.css` or `style.min.css` file to your project head
-- fully responsive design (`.generator`'s size gets adjusted based on screen size). The responsive design can be toggled See [here](https://github.com/Techassi/pwgen/blob/master/README.md#responsive).
+- fully responsive design (`.generator`'s size gets adjusted based on screen size). The responsive design can be toggled See [here](https://github.com/Techassi/pwgen#responsive).
 
 ```html
 <head>
