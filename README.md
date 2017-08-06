@@ -28,10 +28,73 @@ Add this at the end of your file:
 
 ### css
 - Add the `style.css` or `style.min.css` file to your project head
+- fully responsive design (`.generator`'s size gets adjusted based on screen size). The responsive design can be toggled See [here](https://github.com/Techassi/pwgen/edit/master/README.md#responsive).
+
 ```html
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 ```
-- fully responsive design (`.generator`'s size gets adjusted based on screen size). The responsive design can be toggled in a future update.
 
+## config
+The script can be configured the way you like in the following fashion: 
+```html
+<script>
+  $('.your-class').pwgen({
+    'foo': bar,
+    'dog': lazy
+  });
+</script>
+```
+
+Supported keywords:
+### responsive
+Toggles if the container uses responsive design.
+```javascript
+'responsive': true
+supported values: true / false (boolean)
+default: true
+```
+
+### min_length
+Set the minimum length of the password.
+```javascript
+'min_length': 6
+supported values: numeric
+default: 6
+```
+
+### max_length
+Set the maximum length of the password.
+```javascript
+'max_length': 12
+supported values: numeric
+default: -
+```
+
+### include
+Set an include string to be included in every genearted password.
+```javascript
+'include': 'foo'
+supported values: string
+default: ''
+```
+
+### include_append
+Where to append 'include' to user-entered include string.
+TypeError results in 'include_append' = 'right'
+```javascript
+'max_length': 12
+supported values: 'right' / 'left'
+default: 'right'
+```
+Example
+```javascript
+user: foo
+'include': bar
+
+- 'include_append': 'left'
+  bar|foo
+- 'include_append': 'right'
+  foo|bar
+```
