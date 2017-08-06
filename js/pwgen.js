@@ -166,6 +166,7 @@
         // function used to validate arguments
         function validateArgs(args) {
 
+            // basic validation / setting base values
             if(typeof args.responsive === 'undefined')
                 args.responsive = false;
 
@@ -173,13 +174,41 @@
                 args.min_length = 6;
 
             if(typeof args.max_length === 'undefined')
-                args.max_length = '';
+                args.max_length = 12;
 
             if(typeof args.include === 'undefined')
                 args.include = '';
 
             if(typeof args.include_append === 'undefined')
                 args.include_append = 'right';
+
+            // further validation / type check
+            if(typeof args.responsive !== 'boolean') {
+                try {
+                    throw new TypeError('args.responsive only supports type \'boolean\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.responsive = true;
+                }
+            }
+
+            if(typeof args.min_length !== 'number') {
+                try {
+                    throw new TypeError('args.min_length only supports type \'number\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.min_length = 6;
+                }
+            }
+
+            if(typeof args.max_length !== 'number') {
+                try {
+                    throw new TypeError('args.max_length only supports type \'number\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.max_length = 12;
+                }
+            }
 
             if(typeof args.include_append !== 'string') {
                 try {
