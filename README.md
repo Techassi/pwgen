@@ -84,7 +84,7 @@ default: ''
 Where to append 'include' to user-entered include string.
 TypeError results in 'include_append' = 'right'
 ```javascript
-'max_length': 12
+'include_append': 'right'
 supported values: 'right' / 'left'
 default: 'right'
 ```
