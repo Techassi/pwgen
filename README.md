@@ -74,6 +74,7 @@ default: -
 
 ### include
 Set an include string to be included in every genearted password.
+TypeError results in 'include' = ''
 ```javascript
 'include': 'foo'
 supported values: string
