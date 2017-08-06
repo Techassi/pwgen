@@ -16,10 +16,18 @@
 
         var instanceUid = 0;
 
-        function PwGen(element, settings) {
+        function PwGen(element, args) {
+            // argument validation
+            args = validateArgs(args);
+
+            if(args.responsive)
+                $(element).addClass('generator generator_responsive');
+            else
+                $(element).addClass('generator');
+
             $(element).append("\
                 <p>length:</p>\
-                <input type='number' min='6' id='length' class='input' />\
+                <input type='number' min='" + args.min_length + "' max='" + args.max_length + "' id='length' class='input' />\
                 <p>include:</p>\
                 <input type='text' id='include' class='input' />\
                 <button id='genIt'>gen it!</button>\
@@ -39,17 +47,24 @@
                 </div>\
             ");
 
-            initPwgen();
+            initPwgen(args);
         }
 
-        function initPwgen() {
+        function initPwgen(args) {
             $('button').click(function(){
-                // getting the desired length (if empty or smaller than 6 -> length = 6)
+                // getting the desired length
                 var length = $('#length').val();
-                ( length < 6 ) ? length = 6 : length = length;
+                ( length < args.min_length ) ? length = args.min_length : length = length;
 
                 // get the desired include value (empty possible)
                 var include = $('#include').val();
+
+                // if args.include_append is either right or left (other values are not supported and are discarded)
+                if(args.include_append == 'right') {
+                    include += args.include;
+                } else if (args.include_append == 'left') {
+                    include = args.include + include;
+                }
 
                 // setting up all required variables
                 // run varibale 'i' and varibale 'pw'
@@ -148,18 +163,57 @@
             });
         }
 
+        // function used to validate arguments
+        function validateArgs(args) {
+
+            if(typeof args.responsive === 'undefined')
+                args.responsive = false;
+
+            if(typeof args.min_length === 'undefined')
+                args.min_length = 6;
+
+            if(typeof args.max_length === 'undefined')
+                args.max_length = '';
+
+            if(typeof args.include === 'undefined')
+                args.include = '';
+
+            if(typeof args.include_append === 'undefined')
+                args.include_append = 'right';
+
+            if(typeof args.include_append !== 'string') {
+                try {
+                    throw new TypeError('args.include_append only supports type \'string\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.include_append = 'right';
+                }
+            }
+
+            if(typeof args.include !== 'string') {
+                try {
+                    throw new TypeError('args.include only supports type \'string\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.include = '';
+                }
+            }
+
+            return args;
+        }
+
         return PwGen;
 
     }());
 
-    $.fn.pwgen = function() {
+    $.fn.pwgen = function(args) {
         var _ = this,
             // opt = arguments[0],
             // args = Array.prototype.slice.call(arguments, 1),
             l = _.length,
             i;
             // ret;
-        _[0].pwgen = new PwGen(_[0], 'test');
+        _[0].pwgen = new PwGen(_[0], args);
         // for (i = 0; i < l; i++) {
         //     if (typeof opt == 'object' || typeof opt == 'undefined')
         //         _[i].pwgen = new PwGen(_[i], opt);
