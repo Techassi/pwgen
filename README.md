@@ -50,6 +50,7 @@ The script can be configured the way you like in the following fashion:
 Supported keywords:
 ### responsive
 Toggles if the container uses responsive design.
+TypeError results in 'responsive' = true
 ```javascript
 'responsive': true
 supported values: true / false (boolean)
@@ -58,6 +59,7 @@ default: true
 
 ### min_length
 Set the minimum length of the password.
+TypeError results in 'min_length' = 6
 ```javascript
 'min_length': 6
 supported values: numeric
@@ -66,6 +68,7 @@ default: 6
 
 ### max_length
 Set the maximum length of the password.
+TypeError results in 'max_length' = 12
 ```javascript
 'max_length': 12
 supported values: numeric
