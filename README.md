@@ -51,6 +51,7 @@ The script can be configured the way you like in the following fashion:
 ```
 
 Supported keywords:
+## style
 ### responsive
 Toggles if the container uses responsive design.
 TypeError results in 'responsive' = true
@@ -60,6 +61,25 @@ supported values: true / false (boolean)
 default: true
 ```
 
+### length_field
+Toggles if the length input field is displayed.
+TypeError results in 'length_field' = false
+```javascript
+'length_field': true
+supported values: true / false (boolean)
+default: true
+```
+
+### include_field
+Toggles if the inlude input field is displayed.
+TypeError results in 'include_field' = false
+```javascript
+'include_field': true
+supported values: true / false (boolean)
+default: true
+```
+
+## behavior
 ### min_length
 Set the minimum length of the password.
 TypeError results in 'min_length' = 6
@@ -104,4 +124,18 @@ user: foo
   bar|foo
 - 'include_append': 'right'
   foo|bar
+```
+
+## complete example
+```html
+<script>
+  $('.your-class').pwgen({
+    'responsive': true,
+    'min_length': 8,
+    'max_length': 12,
+    'include': 'foo',
+    'include_append': 'right',
+    'length_field': false;
+  });
+</script>
 ```
