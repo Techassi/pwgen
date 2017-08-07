@@ -15,7 +15,6 @@ A simple and fast javascript-based password generator
 ### script
 - Add the latest jQuery via Google Hosted Libraries to your project head
 - Add the `pwgen.js` or (`pwgen.min.js`) file aswell
-- If you want to display SHA1 hashes include `sha1.min.js` aswell
 ```html
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
