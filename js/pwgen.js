@@ -39,6 +39,15 @@
                 ");
             }
 
+            if(args.readable) {
+                $(element).append("\
+                    <div class='pwgen-checkbox-wrapper'>\
+                        <input type='checkbox' id='readable' class='pwgen-checkbox' />\
+                        <label for='readable'>readable</label>\
+                    </div>\
+                ");
+            }
+
             $(element).append("\
                 <button id='genIt' class='pwgen-button'>gen it!</button>\
                 <p>password:</p>\
@@ -103,7 +112,7 @@
                 }
 
                 // the alphabet to generate the pw
-                var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "<", ">", "!", "?", "-", "_"];
+                var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "<", ">", "!", "?", "-", "_", "§", "$", "%", "&", "/", "@"];
 
                 while(i < length) {
 
@@ -122,9 +131,19 @@
                             include = "";
                             included = 1;
                         } else {
-                            chooseAlphabet = Math.round(Math.random() * alphabet.length);
-                            pw += alphabet[chooseAlphabet];
-                            i++;
+                            chooseAlphabet = Math.round(Math.random() * ( alphabet.length - 1 ));
+
+                            // make readable
+                            if($('.pwgen-checkbox').is(":checked")) {
+                                if(!/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?@]/g.test(alphabet[chooseAlphabet])) {
+                                    pw += alphabet[chooseAlphabet];
+                                    i++;
+                                }
+                            } else {
+                                pw += alphabet[chooseAlphabet];
+                                i++;
+                            }
+
                             included = 0;
                         }
 
@@ -135,9 +154,19 @@
                             include = "";
                         }
                     } else {
-                        chooseAlphabet = Math.round(Math.random() * alphabet.length);
-                        pw += alphabet[chooseAlphabet];
-                        i++;
+                        chooseAlphabet = Math.round(Math.random() * ( alphabet.length - 1 ));
+
+                        // make readable
+                        if($('.pwgen-checkbox').is(":checked")) {
+                            if(!/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?@]/g.test(alphabet[chooseAlphabet])) {
+                                pw += alphabet[chooseAlphabet];
+                                i++;
+                            }
+                        } else {
+                            pw += alphabet[chooseAlphabet];
+                            i++;
+                        }
+
                     }
                 }
 
@@ -178,7 +207,7 @@
         // function used to validate arguments
         function validateArgs(args) {
 
-            // basic validation / setting base values
+            // basic validation / setting default values
             if(typeof args.responsive === 'undefined')
                 args.responsive = false;
 
@@ -200,68 +229,40 @@
             if(typeof args.length_field=== 'undefined')
                 args.length_field = true;
 
+            if(typeof args.readable=== 'undefined')
+                args.readable = false;
+
             // further validation / type check
             if(typeof args.responsive !== 'boolean') {
-                try {
-                    throw new TypeError('args.responsive only supports type \'boolean\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.responsive = true;
-                }
+                throwNewError('args.responsive', 'only supports type', 'boolean', args, true);
             }
 
             if(typeof args.min_length !== 'number') {
-                try {
-                    throw new TypeError('args.min_length only supports type \'number\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.min_length = 6;
-                }
+                throwNewError('args.min_length', 'only supports type', 'number', args, 6);
             }
 
             if(typeof args.max_length !== 'number') {
-                try {
-                    throw new TypeError('args.max_length only supports type \'number\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.max_length = 12;
-                }
+                throwNewError('args.max_length', 'only supports type', 'number', args, 12);
             }
 
             if(typeof args.include_append !== 'string') {
-                try {
-                    throw new TypeError('args.include_append only supports type \'string\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.include_append = 'right';
-                }
+                throwNewError('args.include_append', 'only supports type', 'string', args, 'right');
             }
 
             if(typeof args.include !== 'string') {
-                try {
-                    throw new TypeError('args.include only supports type \'string\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.include = '';
-                }
+                throwNewError('args.include', 'only supports type', 'string', args, '');
             }
 
             if(typeof args.include_field !== 'boolean') {
-                try {
-                    throw new TypeError('args.include_field only supports type \'boolean\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.include_field = false;
-                }
+                throwNewError('args.include_field', 'only supports type', 'boolean', args, false);
             }
 
             if(typeof args.length_field !== 'boolean') {
-                try {
-                    throw new TypeError('args.length_field only supports type \'boolean\'');
-                } catch (e) {
-                    console.log('%c' + e.stack, 'color: #F44336');
-                    args.length_field = false;
-                }
+                throwNewError('args.length_field', 'only supports type', 'boolean', args, false);
+            }
+
+            if(typeof args.readable !== 'boolean') {
+                throwNewError('args.readable', 'only supports type', 'boolean', args, false);
             }
 
             return args;
@@ -275,6 +276,17 @@
                 $(this).css({"opacity":"0", "z-index":"-1"});
                 next();
               });
+        }
+
+        // function used to throw new TypeErrors with name = varibale name, msg = message to display, var_type = supported type, args = arguments, default_val = default value
+        // e.g.: TypeError: args.responsive only supports type 'boolean'. Set to true
+        function throwNewError(name, msg, var_type, args, default_val) {
+            try {
+                throw new TypeError(name + ' ' + msg +  ' \'' + var_type + '\'. Set to: ' + default_val);
+            } catch (e) {
+                console.log('%c' + e.stack, 'color: #F44336');
+                args[name] = default_val;
+            }
         }
 
         return PwGen;
