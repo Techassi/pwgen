@@ -122,7 +122,7 @@
                             include = "";
                             included = 1;
                         } else {
-                            chooseAlphabet = Math.round(Math.random() * 66);
+                            chooseAlphabet = Math.round(Math.random() * alphabet.length);
                             pw += alphabet[chooseAlphabet];
                             i++;
                             included = 0;
@@ -135,7 +135,7 @@
                             include = "";
                         }
                     } else {
-                        chooseAlphabet = Math.round(Math.random() * 66);
+                        chooseAlphabet = Math.round(Math.random() * alphabet.length);
                         pw += alphabet[chooseAlphabet];
                         i++;
                     }
@@ -165,24 +165,12 @@
                     if ($('.debug-checkbox').is(":checked")) {
                         console.log('Copying text command was ' + msg);
                     }
-                    $('.pwgen-hint p').text("Copied!");
-                    $('.pwgen-hint').css({"opacity":"1", "z-index":"10"})
-                      .delay(2000)
-                      .queue(function (next) {
-                        $(this).css({"opacity":"0", "z-index":"-1"});
-                        next();
-                      });
+                    showHint('Copied!');
                 } catch (err) {
                     if ($('.debug-checkbox').is(":checked")) {
-                        console.log('O.o unable to copy');
+                        console.log('Copying text command was ' + msg);
                     }
-                    $('.pwgen-hint p').text("Failed :(");
-                    $('.pwgen-hint').css({"opacity":"1", "z-index":"10"})
-                      .delay(2000)
-                      .queue(function (next) {
-                        $(this).css({"opacity":"0", "z-index":"-1"});
-                        next();
-                      });
+                    showHint('Failed :(');
                 }
             });
         }
@@ -277,6 +265,16 @@
             }
 
             return args;
+        }
+
+        function showHint(msg) {
+            $('.pwgen-hint p').text(msg);
+            $('.pwgen-hint').css({"opacity":"1", "z-index":"10"})
+              .delay(2000)
+              .queue(function (next) {
+                $(this).css({"opacity":"0", "z-index":"-1"});
+                next();
+              });
         }
 
         return PwGen;
