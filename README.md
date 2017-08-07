@@ -7,8 +7,6 @@ A simple and fast javascript-based password generator
 - copy to clipboard
 - debug information
 - add / remove ui elements with keywords
-
-## planned features
 - 'readable' option (remove all special characters)
 
 ## usage
@@ -77,6 +75,15 @@ TypeError results in 'include_field' = false
 'include_field': true
 supported values: true / false (boolean)
 default: true
+```
+
+### readable
+Toggles if the 'readable' checkbox is displayed.
+TypeError results in 'readable' = false
+```javascript
+'readable': true
+supported values: true / false (boolean)
+default: false
 ```
 
 ## behavior
