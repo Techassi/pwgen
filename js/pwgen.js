@@ -146,9 +146,7 @@
 
                 // if debug mode is enabled through ui button
                 if ($('.debug-checkbox').is(":checked")) {
-                    var rusha = new Rusha();
-                    var hexHash = rusha.digest(pw);
-                    console.log("pwgen: \n- length: " + length + "\n- include: " + backup_include + "\n- pw: " + pw + "\n- sha1 hash: " + hexHash);
+                    console.log("pwgen: \n- length: " + length + "\n- include: " + backup_include + "\n- pw: " + pw + "");
                 }
 
                 // output the generated pw
