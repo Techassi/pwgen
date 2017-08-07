@@ -79,7 +79,7 @@ default: -
 ```
 
 ### include
-Set an include string to be included in every genearted password.
+Set an include string to be included in every generated password.
 TypeError results in 'include' = ''
 ```javascript
 'include': 'foo'
@@ -95,7 +95,7 @@ TypeError results in 'include_append' = 'right'
 supported values: 'right' / 'left'
 default: 'right'
 ```
-Example
+Example:
 ```javascript
 user: foo
 'include': bar
