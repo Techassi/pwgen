@@ -21,28 +21,38 @@
             args = validateArgs(args);
 
             if(args.responsive)
-                $(element).addClass('generator generator_responsive');
+                $(element).addClass('pwgen pwgen-responsive');
             else
-                $(element).addClass('generator');
+                $(element).addClass('pwgen');
+
+            if(args.length_field) {
+                $(element).append("\
+                    <p>length:</p>\
+                    <input type='number' min='" + args.min_length + "' max='" + args.max_length + "' id='length' class='pwgen-input' />\
+                ");
+            }
+
+            if(args.include_field) {
+                $(element).append("\
+                    <p>include:</p>\
+                    <input type='text' id='include' class='pwgen-input' />\
+                ");
+            }
 
             $(element).append("\
-                <p>length:</p>\
-                <input type='number' min='" + args.min_length + "' max='" + args.max_length + "' id='length' class='input' />\
-                <p>include:</p>\
-                <input type='text' id='include' class='input' />\
-                <button id='genIt'>gen it!</button>\
+                <button id='genIt' class='pwgen-button'>gen it!</button>\
                 <p>password:</p>\
-                <input type='text' id='pw' class='input' />\
-                <span class='copy'>copy to clipboard</span>\
+                <input type='text' id='pw' class='pwgen-input' />\
+                <span class='pwgen-copy'>copy to clipboard</span>\
                 <p class='tools'>debug:</p>\
-                <div class='debug'>\
+                <div class='pwgen-debug'>\
                     <input type='checkbox' name='debug' class='debug-checkbox' id='debug'>\
                     <label class='debug-label' for='debug'></label>\
                 </div>\
             ");
 
             $('body').append("\
-                <div class='hint'>\
+                <div class='pwgen-hint'>\
                     <p></p>\
                 </div>\
             ");
@@ -52,12 +62,38 @@
 
         function initPwgen(args) {
             $('button').click(function(){
+
+                // setting up all required variables
+                // run varibale 'i' and varibale 'pw'
+                var backup_include,
+                    chooseInclude,
+                    included,
+                    chooseAlphabet,
+                    size,
+                    i = 0,
+                    pw = "",
+                    length,
+                    include;
+
                 // getting the desired length
-                var length = $('#length').val();
-                ( length < args.min_length ) ? length = args.min_length : length = length;
+                // if args.length_field is set -> getting length from input field
+                // else choosing random number between args.max_length and args.min_length
+                if(args.length_field) {
+                    length = $('#length').val();
+                    ( length < args.min_length ) ? length = args.min_length : length = length;
+                    ( length > args.max_length ) ? length = args.max_length : length = length;
+                } else {
+                    length = Math.floor(Math.random() * (args.max_length - args.min_length + 1)) + args.min_length;
+                }
+
 
                 // get the desired include value (empty possible)
-                var include = $('#include').val();
+                if(args.include_field)
+                    include = $('#include').val();
+                else
+                    include = '';
+
+                backup_include = include;
 
                 // if args.include_append is either right or left (other values are not supported and are discarded)
                 if(args.include_append == 'right') {
@@ -65,16 +101,6 @@
                 } else if (args.include_append == 'left') {
                     include = args.include + include;
                 }
-
-                // setting up all required variables
-                // run varibale 'i' and varibale 'pw'
-                var backup_include = include,
-                    chooseInclude,
-                    included,
-                    chooseAlphabet,
-                    size,
-                    i = 0,
-                    pw = "";
 
                 // the alphabet to generate the pw
                 var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "<", ">", "!", "?", "-", "_"];
@@ -102,7 +128,7 @@
                             included = 0;
                         }
 
-                        // gets executed if chooseInclude wasn't 1 until there isn't room left for the include string
+                        // gets executed if chooseInclude wasn't '1' until there isn't room left for the include string
                         if(included != 1 && ( i + include.length ) == length) {
                             pw += include;
                             i = i + include.length;
@@ -182,6 +208,12 @@
             if(typeof args.include_append === 'undefined')
                 args.include_append = 'right';
 
+            if(typeof args.include_field === 'undefined')
+                args.include_field = true;
+
+            if(typeof args.length_field=== 'undefined')
+                args.length_field = true;
+
             // further validation / type check
             if(typeof args.responsive !== 'boolean') {
                 try {
@@ -225,6 +257,24 @@
                 } catch (e) {
                     console.log('%c' + e.stack, 'color: #F44336');
                     args.include = '';
+                }
+            }
+
+            if(typeof args.include_field !== 'boolean') {
+                try {
+                    throw new TypeError('args.include_field only supports type \'boolean\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.include_field = false;
+                }
+            }
+
+            if(typeof args.length_field !== 'boolean') {
+                try {
+                    throw new TypeError('args.length_field only supports type \'boolean\'');
+                } catch (e) {
+                    console.log('%c' + e.stack, 'color: #F44336');
+                    args.length_field = false;
                 }
             }
 
