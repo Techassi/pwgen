@@ -44,6 +44,10 @@ html, body {
     font-family: 'Arvo', serif;
 }
 
+.pwgen-checkbox {
+    float: left;
+}
+
 p {
     margin: 0 0 5px 0;
     float: left;
@@ -91,6 +95,55 @@ p {
 
 .debug-checkbox:checked + .debug-label:before {
     right: 0px;
+}
+
+.pwgen-checkbox-wrapper {
+    position: relative;
+    height: 20px;
+    margin: 16px 0;
+    float: left;
+    box-sizing: border-box;
+}
+.pwgen-checkbox-wrapper label {
+    cursor: pointer;
+    font-family: 'Arvo', serif;
+    box-sizing: border-box;
+    color: #3F51B5;
+    font-size: 20px;
+}
+.pwgen-checkbox-wrapper label:before, .pwgen-checkbox-wrapper label:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.pwgen-checkbox-wrapper label:before {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background .3s;
+}
+.pwgen-checkbox-wrapper input[type="checkbox"] {
+    outline: 0;
+    margin-right: 10px;
+    height: 20px;
+}
+.pwgen-checkbox-wrapper input[type="checkbox"]:checked + label:before {
+    background: #3F51B5;
+    border: none;
+}
+.pwgen-checkbox-wrapper input[type="checkbox"]:checked + label:after {
+    transform: rotate(-45deg);
+    top: 5px;
+    left: 4px;
+    width: 12px;
+    height: 6px;
+    border: 2px solid #fff;
+    border-top-style: none;
+    border-right-style: none;
 }
 
 .tools {
