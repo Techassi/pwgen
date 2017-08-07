@@ -75,7 +75,7 @@ TypeError results in 'max_length' = 12
 ```javascript
 'max_length': 12
 supported values: numeric
-default: -
+default: 12
 ```
 
 ### include
