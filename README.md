@@ -6,8 +6,6 @@ A simple and fast javascript-based password generator
 - include a personal string (e.g. your name, birth date, ...) [not recommended]
 - copy to clipboard
 - debug information
-
-## planned features
 - add / remove ui elements with keywords
 
 ## usage
