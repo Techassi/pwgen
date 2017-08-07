@@ -3,7 +3,7 @@ A simple and fast javascript-based password generator
 
 ## features
 - choose length of password (min 6)
-- include a personal string (e.g. your name, birth date, ...)
+- include a personal string (e.g. your name, birth date, ...) [not recommended]
 - copy to clipboard
 - debug information
 
