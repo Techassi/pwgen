@@ -9,6 +9,10 @@ A simple and fast javascript-based password generator
 - add / remove ui elements with keywords
 - 'readable' option (remove all special characters)
 
+## planned features
+- show_hint (Toggle visibility of hint modal)
+- show_copy (Toggle if 'copy to clipboard' is displayed)
+
 ## usage
 ### script
 - Add the latest jQuery via Google Hosted Libraries to your project head
