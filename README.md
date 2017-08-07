@@ -139,3 +139,9 @@ user: foo
   });
 </script>
 ```
+- container uses responsive design
+- password has a minimum length of 8
+- password has a maximum length of 12
+- 'foo' gets included into every password [again not recommended]
+- 'foo' gets appended on the right
+- no length input field is displayed (results in random number between 8 [inclusive] and 12 [inclusive])
