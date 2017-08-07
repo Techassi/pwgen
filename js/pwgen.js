@@ -155,7 +155,7 @@
                 $('#pw').val(pw).css("font-size", size);
             });
 
-            var copyTextareaBtn = document.querySelector('.copy');
+            var copyTextareaBtn = document.querySelector('.pwgen-copy');
 
             copyTextareaBtn.addEventListener('click', function(event) {
                 var copyTextarea = document.querySelector('#pw');
@@ -167,8 +167,8 @@
                     if ($('.debug-checkbox').is(":checked")) {
                         console.log('Copying text command was ' + msg);
                     }
-                    $('.hint p').text("Copied!");
-                    $('.hint').css({"opacity":"1", "z-index":"10"})
+                    $('.pwgen-hint p').text("Copied!");
+                    $('.pwgen-hint').css({"opacity":"1", "z-index":"10"})
                       .delay(2000)
                       .queue(function (next) {
                         $(this).css({"opacity":"0", "z-index":"-1"});
@@ -178,8 +178,8 @@
                     if ($('.debug-checkbox').is(":checked")) {
                         console.log('O.o unable to copy');
                     }
-                    $('.hint p').text("Failed :(");
-                    $('.hint').css({"opacity":"1", "z-index":"10"})
+                    $('.pwgen-hint p').text("Failed :(");
+                    $('.pwgen-hint').css({"opacity":"1", "z-index":"10"})
                       .delay(2000)
                       .queue(function (next) {
                         $(this).css({"opacity":"0", "z-index":"-1"});
